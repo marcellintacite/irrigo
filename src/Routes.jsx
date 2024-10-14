@@ -13,11 +13,16 @@ import Dashboard from "./Dashboard";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import TemperatureHistory from "./Hostory";
+import Apropos from "./pages/Apropos";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Accueil />,
+  },
+  {
+    path: "/a-propos",
+    element: <Apropos />,
   },
   {
     path: "dashboard",

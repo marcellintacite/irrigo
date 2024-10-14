@@ -36,25 +36,13 @@ export default function Navbar() {
         </a>
         <ul class=" items-center hidden space-x-8 lg:flex">
           <li>
-            <a
-              href="/"
-              aria-label="Our product"
-              title="Our product"
-              class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Fonctionalités
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/"
-              aria-label="About us"
+            <Link
+              to={"/a-propos"}
               title="About us"
               class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
             >
               A propos
-            </a>
+            </Link>
           </li>
           <li>
             {user ? (
@@ -152,14 +140,14 @@ export default function Navbar() {
                     </li>
 
                     <li className="border-b-2 py-2">
-                      <a
-                        href="/"
+                      <Link
+                        to={"/a-propos"}
                         aria-label="About us"
                         title="About us"
                         class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                       >
                         A propos
-                      </a>
+                      </Link>
                     </li>
 
                     <li>
