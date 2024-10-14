@@ -8,13 +8,13 @@ import { useUser } from "@clerk/clerk-react";
 const imgs = {
   hot: "./hot.jpg",
   cold: "./cold.jpg",
-  mild: "./mild.jpg",
+  mild: "./default.jpg",
   default: "./default.jpg",
 };
 
 const Dashboard = () => {
   const [pinValue, setPinValue] = useState(0);
-  const [temperature, setTemperature] = useState(null);
+  const [temperature, setTemperature] = useState(null); // Now represents moisture percentage
   const [hardwareStatus, setHardwareStatus] = useState("Unknown");
   const [motorStatus, setMotorStatus] = useState("Éteint"); // État du moteur
   const { isSignedIn, user, isLoaded } = useUser();
@@ -85,7 +85,7 @@ const Dashboard = () => {
     const interval = setInterval(() => {
       fetchTemperature();
       checkHardwareStatus();
-    }, 5000);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
@@ -99,6 +99,23 @@ const Dashboard = () => {
       return imgs.mild;
     }
     return imgs.default;
+  };
+
+  // Function to get soil moisture message based on temperature percentage
+  const getSoilMoistureMessage = (temp) => {
+    if (temp >= 0 && temp < 20) {
+      return "Sol très sec";
+    } else if (temp >= 20 && temp < 40) {
+      return "Sol sec";
+    } else if (temp >= 40 && temp < 60) {
+      return "Sol modérément humide";
+    } else if (temp >= 60 && temp < 80) {
+      return "Sol humide";
+    } else if (temp >= 80 && temp <= 100) {
+      return "Sol très humide";
+    } else {
+      return "Valeur non valide"; // Handle invalid temperature values
+    }
   };
 
   return (
@@ -115,11 +132,13 @@ const Dashboard = () => {
       <div className="relative z-10 text-center p-10 bg-black bg-opacity-60 rounded-lg">
         {/* Température dans un style écran LED */}
         <div className="mb-6">
-          <h2 className="text-white text-2xl mb-4">Température actuelle</h2>
+          <h2 className="text-white text-2xl mb-4">Humidité du sol actuelle</h2>
           <div className="flex items-center justify-center bg-gray-800 text-yellow-300 text-6xl font-bold rounded-lg py-4 px-8">
             <Thermometer className="w-8 h-8 mr-2 text-yellow-300" />
             {temperature !== null ? (
-              <p>{temperature}°C</p>
+              <p>
+                {temperature} % - {getSoilMoistureMessage(temperature)}
+              </p>
             ) : (
               <p className="text-white">Chargement...</p>
             )}
@@ -153,15 +172,21 @@ const Dashboard = () => {
         {/* Contrôler le moteur */}
         <div className="flex space-x-4 justify-center mb-6">
           <button
-            className="flex items-center px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            className="flex items-center px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:opacity-50 "
             onClick={() => togglePin(1)}
+            disabled={
+              motorStatus === "Allumé" || hardwareStatus === "Disconnected"
+            }
           >
             <Power className="w-5 h-5 mr-2" />
             Allumer
           </button>
           <button
-            className="flex items-center px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600"
+            className="flex items-center px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 disabled:opacity-50 "
             onClick={() => togglePin(0)}
+            disabled={
+              motorStatus === "Éteint" || hardwareStatus === "Disconnected"
+            }
           >
             <Power className="w-5 h-5 mr-2" />
             Éteindre
