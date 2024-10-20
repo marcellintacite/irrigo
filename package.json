@@ -11,16 +11,19 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.9.4",
-    "@clerk/localizations": "^3.1.0",
+    "@clerk/localizations": "^3.3.0",
     "axios": "^1.7.7",
     "flowbite": "^2.5.2",
     "framer-motion": "^11.11.8",
     "lucide-react": "^0.446.0",
+    "papaparse": "^5.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-dropzone": "^14.2.10",
     "react-modern-drawer": "^1.4.0",
     "react-router-dom": "^6.26.2",
-    "react-toastify": "^10.0.5"
+    "react-toastify": "^10.0.5",
+    "recharts": "^2.13.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

@@ -14,6 +14,8 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import TemperatureHistory from "./Hostory";
 import Apropos from "./pages/Apropos";
+import Viasualiser from "./pages/Viasualiser";
+import Platentes from "./pages/Platentes";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +43,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
+      },
+      {
+        path: "graphique",
+        element: <Viasualiser />,
+      },
+      {
+        path: "plantes",
+        element: <Platentes />,
       },
       {
         path: "history",

@@ -1,5 +1,5 @@
 import { useClerk } from "@clerk/clerk-react";
-import { History } from "lucide-react";
+import { Activity, History, TreePalm } from "lucide-react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Button from "./Button";
@@ -45,6 +45,32 @@ export default function Sidebar() {
           </Link>
 
           {/* History link */}
+          <Link
+            to="/dashboard/plantes"
+            className={`flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start ${
+              pathname === "/dashboard/plantes"
+                ? activeStyle
+                : "hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900"
+            }`}
+          >
+            <div className="grid mr-4 place-items-center">
+              <TreePalm className="w-5 h-5" />
+            </div>
+            Plantes
+          </Link>
+          <Link
+            to="/dashboard/graphique"
+            className={`flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start ${
+              pathname === "/dashboard/graphique"
+                ? activeStyle
+                : "hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900"
+            }`}
+          >
+            <div className="grid mr-4 place-items-center">
+              <Activity className="w-5 h-5" />
+            </div>
+            Graphiques
+          </Link>
           <Link
             to="/dashboard/history"
             className={`flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start ${
