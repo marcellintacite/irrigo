@@ -14,9 +14,9 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import TemperatureHistory from "./Hostory";
 import Apropos from "./pages/Apropos";
-import Viasualiser from "./pages/Viasualiser";
-import Platentes from "./pages/Platentes";
-
+import Visualiser from "./pages/Graphique";
+import Plantes from "./pages/Plantes";
+import { PlantesId } from "./components/PlanteId";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
         <Navbar />
         <div className="flex relative flex-1 h-full overflow-y-auto pt-1">
           <Sidebar />
-          <div className="flex-1 h-full">
+          <div className="flex-1 h-full ">
             <Outlet />
           </div>
         </div>
@@ -46,11 +46,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "graphique",
-        element: <Viasualiser />,
+        element: <Visualiser />,
       },
       {
         path: "plantes",
-        element: <Platentes />,
+        element: <Plantes />,
+      },
+      {
+        path:"plantes/:id",
+        element: <PlantesId/>
       },
       {
         path: "history",

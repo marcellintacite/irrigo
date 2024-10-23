@@ -3,7 +3,7 @@ import React from "react";
 const PlantDetails = ({ plant }) => {
   if (!plant) {
     return (
-      <div className="text-gray-500">
+      <div className="text-gray-500 mt-2">
         Sélectionnez une plante pour voir les détails
       </div>
     );

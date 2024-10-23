@@ -1,6 +1,6 @@
 import { SignInButton, useUser } from "@clerk/clerk-react";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const { isSignedIn, user, isLoaded } = useUser();
@@ -58,13 +58,12 @@ export const Header = () => {
                 <Button>Se connecter</Button>
               </SignInButton>
             )}
-            <a
-              href="/"
-              aria-label=""
+            <Link
+              to={"/a-propos"}
               className="inline-flex items-center font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700"
             >
               Apprendre Plus
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Thermometer, ArrowUp, ArrowDown } from "lucide-react";
+import React, { useState } from "react";
 import axios from "axios";
 
 export default function TemperatureHistory() {
+  const [period, setPeriod] = useState("DAY"); // State for selected period
   const authToken = "VjgDnrEE5_mALkdCPMkPSQhUpn-mh3Ug";
+  
   const fetchHistoryData = () => {
-    const period = "week"; // Example period (e.g., "1h" for 1 hour)
     const granularityType = "minute"; // Example granularity (minute-level data)
     const sourceType = "AVG"; // Source type for virtual pin
     const tzName = "UTC"; // Timezone
-
     const pin = "V2"; // Pin for temperature data
 
     axios
@@ -17,10 +16,10 @@ export default function TemperatureHistory() {
         `https://blynk.cloud/external/api/data/get?token=${authToken}&period=${period}&granularityType=${granularityType}&sourceType=${sourceType}&tzName=${tzName}&pin=${pin}`
       )
       .then((response) => {
-        // the response send a link
+        // the response sends a link
         console.log("History data:", response.data);
         const link = response.data;
-        // open link in new tab
+        // open link in a new tab
         window.open(link.link, "_blank");
       })
       .catch((error) => {
@@ -33,6 +32,23 @@ export default function TemperatureHistory() {
       <h1 className="text-2xl font-semibold text-blue-gray-900 mb-6">
         Historique des températures
       </h1>
+
+      {/* Dropdown for selecting the period */}
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Sélectionnez la période :
+        </label>
+        <select
+          value={period}
+          onChange={(e) => setPeriod(e.target.value)}
+          className="border rounded-md p-2 w-full"
+        >
+          <option value="HOUR">Heure</option>
+          <option value="DAY">Jour</option>
+          <option value="WEEK">Semaine</option>
+          {/* <option value="THREE_MONTHS">Trimestre</option> */}
+        </select>
+      </div>
 
       <div className="h-[50vh] bg-white rounded-md flex justify-center items-center">
         <button
