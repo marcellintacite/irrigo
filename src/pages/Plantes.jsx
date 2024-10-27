@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import PlantCard from "../components/PlantCard";
+import { CheckCircle, XCircle } from "lucide-react";
 
 export const mockPlantsData = [
   {
@@ -48,10 +49,12 @@ const Plantes = () => {
   const [temperature, setTemperature] = useState(null);
   const [temperatureData, setTemperatureData] = useState([]);
   const [lcdMessage, setLcdMessage] = useState("En cours...");
+  const [hardwareStatus, setHardwareStatus] = useState("Unknown");
 
   useEffect(() => {
     const interval = setInterval(() => {
       fetchTemperature();
+      checkHardwareStatus();
     }, 3000); // Fetch temperature every 3 seconds
 
     return () => clearInterval(interval);
@@ -93,12 +96,27 @@ const Plantes = () => {
         ]);
 
         // Update the LCD message
-        setLcdMessage(`Temperature: ${newTemperature}%`);
+        setLcdMessage(`Humidité: ${newTemperature}%`);
         console.log("Temperature:", newTemperature);
       })
       .catch((error) => {
         console.error("Error fetching temperature", error);
         setLcdMessage("Erreur de lecture");
+      });
+  };
+
+  const checkHardwareStatus = () => {
+    axios
+      .get(
+        `https://blynk.cloud/external/api/isHardwareConnected?token=${authToken}`
+      )
+      .then((response) => {
+        const status = response.data ? "Connected" : "Disconnected";
+        setHardwareStatus(status);
+        console.log("Hardware status:", status);
+      })
+      .catch((error) => {
+        console.error("Error fetching hardware status", error);
       });
   };
 
@@ -141,10 +159,27 @@ const Plantes = () => {
                   Fermer
                 </button>
                 <span className="ml-2">Moteur {motorStatus}</span>
+
+                <div className="mb-6 mt-5">
+         
+        </div>
               </div>
               <div className="mt-4 bg-gray-900 text-white p-4 rounded-md text-center">
                 <h3 className="text-lg">Écran LCD</h3>
                 <p>{lcdMessage}</p>
+                <h2 className="text-white text-2xl mb-4 flex items-center justify-center space-x-2">
+            {hardwareStatus === "Connected" ? (
+              <>
+                <CheckCircle className="w-6 h-6 text-green-500" />
+                <span>État du matériel : Connecté</span>
+              </>
+            ) : (
+              <>
+                <XCircle className="w-6 h-6 text-red-500" />
+                <span>État du matériel : Déconnecté</span>
+              </>
+            )}
+          </h2>
               </div>
             </div>
             <button
@@ -157,7 +192,7 @@ const Plantes = () => {
 
           {/* Temperature Area Chart */}
           <div className="flex-1 ml-8">
-            <h3 className="text-lg font-bold mb-4">Temperature en temps réel</h3>
+            <h3 className="text-lg font-bold mb-4">Humidité en temps réel</h3>
             <ResponsiveContainer width="100%" height={300}>
               <AreaChart data={temperatureData}>
                 <CartesianGrid strokeDasharray="3 3" />

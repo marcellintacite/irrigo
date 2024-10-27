@@ -132,7 +132,7 @@ const Dashboard = () => {
       <div className="relative z-10 text-center p-10 bg-black bg-opacity-60 rounded-lg">
         {/* Température dans un style écran LED */}
         <div className="mb-6">
-          <h2 className="text-white text-2xl mb-4">Humidité du sol actuelle</h2>
+          <h2 className="text-white text-2xl mb-4">Humidité actuelle</h2>
           <div className="flex items-center justify-center bg-gray-800 text-yellow-300 text-6xl font-bold rounded-lg py-4 px-8">
             <Thermometer className="w-8 h-8 mr-2 text-yellow-300" />
             {temperature !== null ? (

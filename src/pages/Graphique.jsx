@@ -15,6 +15,7 @@ import {
   AreaChart,
   Area,
 } from "recharts";
+import Time from "../components/Time";
 
 const Visualiser = () => {
   const [data, setData] = useState([]);
@@ -229,6 +230,8 @@ const Visualiser = () => {
 </div>
 
 )}
+
+<Time/>
 
     </div>
   );

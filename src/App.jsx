@@ -106,7 +106,7 @@ const BlynkControlApp = () => {
       </div>
 
       <div style={styles.temperatureContainer}>
-        <h2>Current Temperature</h2>
+        <h2>Humidité </h2>
         {temperature !== null ? (
           <p style={styles.temperature}>{temperature}°C</p>
         ) : (
@@ -115,7 +115,7 @@ const BlynkControlApp = () => {
       </div>
 
       <div style={styles.historyContainer}>
-        <h2>Temperature History</h2>
+        <h2>Humidité History</h2>
         <BlynkHistoryApp historyData={historyData} />
       </div>
     </div>
